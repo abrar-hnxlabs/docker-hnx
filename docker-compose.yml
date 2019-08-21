@@ -46,7 +46,6 @@ services:
       - "/home/abrar/docker/letsencrypt/etc/letsencrypt/live:/ssl:ro"
     ports:
       - "443:443"
-      - "4434:4434"
 
   letsencrypt:
     image: "linuxserver/letsencrypt"
