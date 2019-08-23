@@ -11,7 +11,8 @@ services:
     volumes:
       - "/storage/media:/data:ro"
       - "/storage/transcode:/transcode"
-      - "/home/abrar/docker/plex/config:/config"  
+      - "/home/abrar/docker/plex/config:/config"
+      - "/home/abrar/docker/letsencrypt/etc/letsencrypt/live:/ssl:ro"
 
   # pihole:
   #   image: "pihole/pihole"
