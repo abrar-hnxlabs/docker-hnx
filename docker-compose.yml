@@ -9,10 +9,10 @@ services:
         PGID: 1001
         VERSION: "docker"
     volumes:
-      - "/storage/media:/data:ro"
-      - "/storage/transcode:/transcode"
-      - "/home/abrar/docker/plex/config:/config"
-      - "/home/abrar/docker/letsencrypt/etc/letsencrypt/live:/ssl:ro"
+      - "/mnt/external/media:/data:ro"
+      - "/mnt/external/transcode:/transcode"
+      - "/mnt/external/docker-mounts/plex/config:/config"
+      - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
 
   # pihole:
   #   image: "pihole/pihole"
@@ -27,8 +27,8 @@ services:
   #     VIRTUAL_HOST: "pihole.hnxlabs.com"
   #     WEBPASSWORD: ""
   #   volumes:
-  #     - "/home/abrar/docker/pihole:/etc/pihole"
-  #     - "/home/abrar/docker/pihole/dnsmasq.d:/etc/dnsmasq.d"
+  #     - "/mnt/external/docker-mount/pihole:/etc/pihole"
+  #     - "/mnt/external/docker-mount/pihole/dnsmasq.d:/etc/dnsmasq.d"
   #   dns:
   #     - 127.0.0.1
   #     - 8.8.8.8
@@ -43,8 +43,8 @@ services:
       - transmission
       - handbrake
     volumes:
-      - "/home/abrar/docker-hnx/configs/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
-      - "/home/abrar/docker/letsencrypt/etc/letsencrypt/live:/ssl:ro"
+      - "/mnt/external/projects/docker-hnx/configs/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
+      - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
     ports:
       - "443:443"
 
@@ -61,7 +61,7 @@ services:
       STAGING: "false"
       ONLY_SUBDOMAINS: "true"
     volumes:
-      - "/home/abrar/docker/letsencrypt:/config"
+      - "/mnt/external/docker-mounts/letsencrypt:/config"
     ports:
       - "80:80"
       
@@ -69,7 +69,7 @@ services:
     image: "haugene/transmission-openvpn"
     restart: "unless-stopped"
     volumes:
-      - "/storage/media:/media"
+      - "/mnt/external/media:/data"
       - "/etc/localtime:/etc/localtime:ro"
     env_file:
       - "transmission.env"
@@ -86,6 +86,6 @@ services:
     devices:
       - "/dev/dri:/dev/dri"
     volumes:
-      - "/home/abrar/docker/handbrake:/config:rw"
-      - "/storage/media:/storage:ro"
-      - "/storage/transcode/handbrake:/output:rw"
+      - "/mnt/external/docker-mounts/handbrake:/config:rw"
+      - "/mnt/external/media:/data:ro"
+      - "/mnt/external/transcode/handbrake:/output:rw"
