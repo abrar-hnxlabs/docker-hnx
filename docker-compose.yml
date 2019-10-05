@@ -75,6 +75,8 @@ services:
       - "transmission.env"
     cap_add:
       - NET_ADMIN
+    ports:
+      - "9091:9091"
   
   handbrake:
     image: "jlesage/handbrake"
@@ -89,3 +91,5 @@ services:
       - "/mnt/external/docker-mounts/handbrake:/config:rw"
       - "/mnt/external/media:/data:ro"
       - "/mnt/external/transcode/handbrake:/output:rw"
+    ports:
+      - "5800:5800"
