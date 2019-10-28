@@ -93,3 +93,18 @@ services:
       - "/mnt/external/transcode/handbrake:/output:rw"
     ports:
       - "5800:5800"
+  
+  tautuli:
+    image: "tautulli/tautulli"
+    restart: "unless-stopped"
+    environment:
+        PUID: 1000
+        PGID: 1001
+        TZ: "America/Los_Angeles"
+    volumes:
+      - "/mnt/external/docker-mounts/tautuli/config:/config"
+      - "/mnt/external/docker-mounts/plex/config/Library/Application Support/Plex Media Server/Logs:/plex_logs:ro"
+    ports:
+      - "8181:8181"
+
+
