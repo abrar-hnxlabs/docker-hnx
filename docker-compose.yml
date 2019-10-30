@@ -8,6 +8,8 @@ services:
         PUID: 1000
         PGID: 1001
         VERSION: "docker"
+    devices:
+      - "/dev/dri:/dev/dri"
     volumes:
       - "/mnt/external/media:/data:ro"
       - "/mnt/external/transcode:/transcode"
