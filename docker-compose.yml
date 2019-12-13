@@ -77,7 +77,7 @@ services:
       PGID: 1001
       TZ: "America/Los_angeles"
       TRANSMISSION_RPC_HOST_WHITELIST: "bt.hnxlabs.com"
-      TRANSMISSION_RPC_HOST_WHITELIST_ENABLED: true
+      TRANSMISSION_RPC_HOST_WHITELIST_ENABLED: "true"
     ports:
       - "9091:9091"
   
