@@ -3,7 +3,8 @@ services:
   plex:
     image: "linuxserver/plex"
     restart: "unless-stopped"
-    network_mode: "host"
+    networks: 
+      - media_nw
     environment:
         PUID: 1000
         PGID: 1001
@@ -15,6 +16,9 @@ services:
       - "/mnt/external/transcode:/transcode"
       - "/mnt/external/docker-mounts/plex/config:/config"
       - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
+    ports:
+      - 4434:32400
+      - 32400:32400
 
   # pihole:
   #   image: "pihole/pihole"
