@@ -119,7 +119,3 @@ services:
       - "/mnt/external/docker-mounts/plex/config/Library/Application Support/Plex Media Server/Logs:/plex_logs:ro"
     ports:
       - "8181:8181"
-
-networks:
-  media_nw:
-    driver: default
