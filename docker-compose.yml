@@ -40,6 +40,8 @@ services:
   haproxy:
     image: 'haproxy:alpine'
     restart: "unless-stopped"
+    networks: 
+      - media_nw
     depends_on:
       - plex
       - transmission
@@ -53,6 +55,8 @@ services:
   letsencrypt:
     image: "linuxserver/letsencrypt"
     restart: "unless-stopped"
+    networks: 
+      - media_nw
     environment:
       PUID: 1000
       PGID: 1001
@@ -70,6 +74,8 @@ services:
   transmission:
     image: "linuxserver/transmission"
     restart: "unless-stopped"
+    networks: 
+      - media_nw
     volumes:
       - "/mnt/external/media:/downloads"
     environment:
@@ -84,6 +90,8 @@ services:
   handbrake:
     image: "jlesage/handbrake"
     restart: "unless-stopped"
+    networks: 
+      - media_nw
     environment:
       USER_ID: 1000
       GROUP_ID: 1001
@@ -100,6 +108,8 @@ services:
   tautuli:
     image: "tautulli/tautulli"
     restart: "unless-stopped"
+    networks: 
+      - media_nw
     environment:
         PUID: 1000
         PGID: 1001
@@ -110,4 +120,8 @@ services:
     ports:
       - "8181:8181"
 
-
+networks:
+  media_nw:
+    driver: default
+    config:
+      - subnet: "10.0.1.0/24"
