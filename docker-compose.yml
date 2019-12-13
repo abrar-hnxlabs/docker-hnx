@@ -3,8 +3,7 @@ services:
   plex:
     image: "linuxserver/plex"
     restart: "unless-stopped"
-    networks: 
-      - media_nw
+    network_mode: "host"
     environment:
         PUID: 1000
         PGID: 1001
@@ -16,9 +15,6 @@ services:
       - "/mnt/external/transcode:/transcode"
       - "/mnt/external/docker-mounts/plex/config:/config"
       - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
-    ports:
-      - 4434:32400
-      - 32400:32400
 
   # pihole:
   #   image: "pihole/pihole"
@@ -44,8 +40,6 @@ services:
   haproxy:
     image: 'haproxy:alpine'
     restart: "unless-stopped"
-    networks: 
-      - media_nw
     depends_on:
       - plex
       - transmission
@@ -59,8 +53,6 @@ services:
   letsencrypt:
     image: "linuxserver/letsencrypt"
     restart: "unless-stopped"
-    networks: 
-      - media_nw
     environment:
       PUID: 1000
       PGID: 1001
@@ -76,26 +68,21 @@ services:
       - "80:80"
       
   transmission:
-    image: "linuxserver/transmission"
+    image: "haugene/transmission-openvpn"
     restart: "unless-stopped"
-    networks: 
-      - media_nw
     volumes:
-      - "/mnt/external/media:/downloads"
-    environment:
-      PUID: 1000
-      PGID: 1001
-      TZ: "America/Los_angeles"
-      TRANSMISSION_RPC_HOST_WHITELIST: "bt.hnxlabs.com"
-      TRANSMISSION_RPC_HOST_WHITELIST_ENABLED: "true"
+      - "/mnt/external/media:/media"
+      - "/etc/localtime:/etc/localtime:ro"
+    env_file:
+      - "transmission.env"
+    cap_add:
+      - NET_ADMIN
     ports:
       - "9091:9091"
   
   handbrake:
     image: "jlesage/handbrake"
     restart: "unless-stopped"
-    networks: 
-      - media_nw
     environment:
       USER_ID: 1000
       GROUP_ID: 1001
@@ -112,8 +99,6 @@ services:
   tautuli:
     image: "tautulli/tautulli"
     restart: "unless-stopped"
-    networks: 
-      - media_nw
     environment:
         PUID: 1000
         PGID: 1001
@@ -124,9 +109,4 @@ services:
     ports:
       - "8181:8181"
 
-networks: 
-  media_nw:
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.0.1.0/24
+
