@@ -68,15 +68,16 @@ services:
       - "80:80"
       
   transmission:
-    image: "haugene/transmission-openvpn"
+    image: "linuxserver/transmission"
     restart: "unless-stopped"
     volumes:
-      - "/mnt/external/media:/media"
-      - "/etc/localtime:/etc/localtime:ro"
-    env_file:
-      - "transmission.env"
-    cap_add:
-      - NET_ADMIN
+      - "/mnt/external/media:/downloads"
+    environment:
+      PUID: 1000
+      PGID: 1001
+      TZ: "America/Los_angeles"
+      TRANSMISSION_RPC_HOST_WHITELIST: "bt.hnxlabs.com"
+      TRANSMISSION_RPC_HOST_WHITELIST_ENABLED: true
     ports:
       - "9091:9091"
   
