@@ -47,6 +47,7 @@ services:
     volumes:
       - "/mnt/external/projects/docker/configs/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
       - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
+      - "/mnt/external/docker-mounts/haproxy/log:/dev/log"
     ports:
       - "443:443"
 
