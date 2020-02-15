@@ -110,12 +110,3 @@ services:
     ports:
       - "8181:8181"
 
-  photoprism:
-    image: "photoprism/photoprism:latest"
-    restart: "unless-stopped"
-    volumes: 
-      - "/mnt/external/media/photos:/home/photoprism/Pictures/Originals:ro"
-      - "/mnt/external/docker-mounts/photoprism:/home/photoprism/.cache/photoprism"
-    ports:
-      - "2342:2342"
-
