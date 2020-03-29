@@ -37,36 +37,36 @@ services:
   #   extra_hosts:
   #     - "plex.hnxlabs.com:192.168.1.65"
 
-  haproxy:
-    image: 'haproxy:alpine'
-    restart: "unless-stopped"
-    depends_on:
-      - plex
-      - transmission
-      - handbrake
-    volumes:
-      - "/mnt/external/projects/docker/configs/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
-      - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
-      - "/run/systemd/journal/syslog:/dev/log"
-    ports:
-      - "443:443"
+  # haproxy:
+  #   image: 'haproxy:alpine'
+  #   restart: "unless-stopped"
+  #   depends_on:
+  #     - plex
+  #     - transmission
+  #     - handbrake
+  #   volumes:
+  #     - "/mnt/external/projects/docker/configs/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
+  #     - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
+  #     - "/run/systemd/journal/syslog:/dev/log"
+  #   ports:
+  #     - "443:443"
 
-  letsencrypt:
-    image: "linuxserver/letsencrypt"
-    restart: "unless-stopped"
-    environment:
-      PUID: 1000
-      PGID: 1001
-      TZ: "America/Los_angeles"
-      URL: "hnxlabs.com"
-      SUBDOMAINS: "plex,bt,hb"
-      VALIDATION: "http"
-      STAGING: "false"
-      ONLY_SUBDOMAINS: "true"
-    volumes:
-      - "/mnt/external/docker-mounts/letsencrypt:/config"
-    ports:
-      - "80:80"
+  # letsencrypt:
+  #   image: "linuxserver/letsencrypt"
+  #   restart: "unless-stopped"
+  #   environment:
+  #     PUID: 1000
+  #     PGID: 1001
+  #     TZ: "America/Los_angeles"
+  #     URL: "hnxlabs.com"
+  #     SUBDOMAINS: "plex,bt,hb"
+  #     VALIDATION: "http"
+  #     STAGING: "false"
+  #     ONLY_SUBDOMAINS: "true"
+  #   volumes:
+  #     - "/mnt/external/docker-mounts/letsencrypt:/config"
+  #   ports:
+  #     - "80:80"
       
   transmission:
     image: "haugene/transmission-openvpn"
@@ -81,21 +81,21 @@ services:
     ports:
       - "9091:9091"
   
-  handbrake:
-    image: "jlesage/handbrake"
-    restart: "unless-stopped"
-    environment:
-      USER_ID: 1000
-      GROUP_ID: 1001
-      TZ: "America/Los_Angeles"
-    devices:
-      - "/dev/dri:/dev/dri"
-    volumes:
-      - "/mnt/external/docker-mounts/handbrake:/config:rw"
-      - "/mnt/external/media:/data:ro"
-      - "/mnt/external/transcode/handbrake:/output:rw"
-    ports:
-      - "5800:5800"
+  # handbrake:
+  #   image: "jlesage/handbrake"
+  #   restart: "unless-stopped"
+  #   environment:
+  #     USER_ID: 1000
+  #     GROUP_ID: 1001
+  #     TZ: "America/Los_Angeles"
+  #   devices:
+  #     - "/dev/dri:/dev/dri"
+  #   volumes:
+  #     - "/mnt/external/docker-mounts/handbrake:/config:rw"
+  #     - "/mnt/external/media:/data:ro"
+  #     - "/mnt/external/transcode/handbrake:/output:rw"
+  #   ports:
+  #     - "5800:5800"
   
   tautuli:
     image: "tautulli/tautulli"
