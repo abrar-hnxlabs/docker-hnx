@@ -1,20 +1,20 @@
 version: "3"
 services:
-  plex:
-    image: "linuxserver/plex"
-    restart: "unless-stopped"
-    network_mode: "host"
-    environment:
-        PUID: 1000
-        PGID: 1001
-        VERSION: "docker"
-    devices:
-      - "/dev/dri:/dev/dri"
-    volumes:
-      - "/mnt/external/media:/data:ro"
-      - "/mnt/external/transcode:/transcode"
-      - "/mnt/external/docker-mounts/plex/config:/config"
-      - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
+  # plex:
+  #   image: "linuxserver/plex"
+  #   restart: "unless-stopped"
+  #   network_mode: "host"
+  #   environment:
+  #       PUID: 1000
+  #       PGID: 1001
+  #       VERSION: "docker"
+  #   devices:
+  #     - "/dev/dri:/dev/dri"
+  #   volumes:
+  #     - "/mnt/external/media:/data:ro"
+  #     - "/mnt/external/transcode:/transcode"
+  #     - "/mnt/external/docker-mounts/plex/config:/config"
+  #     - "/mnt/external/docker-mounts/letsencrypt/etc/letsencrypt/live:/ssl:ro"
 
   # pihole:
   #   image: "pihole/pihole"
@@ -72,7 +72,7 @@ services:
     image: "haugene/transmission-openvpn"
     restart: "unless-stopped"
     volumes:
-      - "/mnt/external/media:/media"
+      - "/mnt/internal/media:/media"
       - "/etc/localtime:/etc/localtime:ro"
     env_file:
       - "transmission.env"
@@ -97,16 +97,16 @@ services:
   #   ports:
   #     - "5800:5800"
   
-  tautuli:
-    image: "tautulli/tautulli"
-    restart: "unless-stopped"
-    environment:
-        PUID: 1000
-        PGID: 1001
-        TZ: "America/Los_Angeles"
-    volumes:
-      - "/mnt/external/docker-mounts/tautuli/config:/config"
-      - "/mnt/external/docker-mounts/plex/config/Library/Application Support/Plex Media Server/Logs:/plex_logs:ro"
-    ports:
-      - "8181:8181"
+  # tautuli:
+  #   image: "tautulli/tautulli"
+  #   restart: "unless-stopped"
+  #   environment:
+  #       PUID: 1000
+  #       PGID: 1001
+  #       TZ: "America/Los_Angeles"
+  #   volumes:
+  #     - "/mnt/external/docker-mounts/tautuli/config:/config"
+  #     - "/mnt/external/docker-mounts/plex/config/Library/Application Support/Plex Media Server/Logs:/plex_logs:ro"
+  #   ports:
+  #     - "8181:8181"
 
